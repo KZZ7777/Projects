@@ -1,0 +1,52 @@
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Route voor wiskundige bewerkingen
+app.get('/:operator', (req, res) => {
+    const { operator } = req.params;
+    const a = parseFloat(req.query.a);
+    const b = parseFloat(req.query.b);
+
+    // Controleer of beide query parameters aanwezig zijn
+    if (isNaN(a) || isNaN(b)) {
+        return res.status(400).json({ error: "Both query parameters (a,b) have to be specified." });
+    }
+
+    // Controleer of beide parameters van het type number zijn
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        return res.status(400).json({ error: "Both query parameters (a,b) have to be of type number." });
+    }
+
+    let result;
+
+    // Voer de juiste bewerking uit op basis van de operator
+    switch (operator) {
+        case 'add':
+            result = a + b;
+            break;
+        case 'min':
+            result = a - b;
+            break;
+        case 'mult':
+            result = a * b;
+            break;
+        case 'div':
+            // Controleer op deling door 0
+            if (b === 0) {
+                return res.status(400).json({ error: "Division by 0 is not allowed." });
+            }
+            result = a / b;
+            break;
+        default:
+            return res.status(400).json({ error: "Unknown operator." });
+    }
+
+    // Geef het resultaat terug als JSON
+    res.json({ result });
+});
+
+// Start de server
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});
