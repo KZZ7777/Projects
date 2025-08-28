@@ -1,0 +1,24 @@
+{
+  "name": "project-3---to-do-lijst",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node index.ts",
+    "build": "tsc",
+    "start": "ts-node --compiler-options '{\"module\":\"CommonJS\",\"moduleResolution\":\"Node\",\"esModuleInterop\":true,\"verbatimModuleSyntax\":false,\"types\":[\"node\"]}' index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}
