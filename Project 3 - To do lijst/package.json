@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node index.ts",
     "build": "tsc",
-    "start": "ts-node --compiler-options '{\"module\":\"CommonJS\",\"moduleResolution\":\"Node\",\"esModuleInterop\":true,\"verbatimModuleSyntax\":false,\"types\":[\"node\"]}' index.ts"
+    "start": "nodemon index.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +14,7 @@
   "description": "",
   "devDependencies": {
     "@types/node": "^24.3.0",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },

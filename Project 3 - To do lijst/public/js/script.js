@@ -7,59 +7,59 @@ btn.addEventListener("click", () => {
 
     const task = input.value.trim(); // trim zorgt ervoor dat spaties bij het begin en eide van van de invoer wordt verwijderd
 
-    if (task ==='') {
-        alert("You must write something!"); 
+    if (task === '') {
+        alert("You must write something!");
     }
     else {
-         // we gaan een list maken
+        // we gaan een list maken
         const li = document.createElement("li");
-   
-   
-  
-
-    // Checkbox maken
-    const checkbox = document.createElement("input");
-    checkbox.className = "checkbox"
-    checkbox.type = "checkbox"; // hier zeggen we wat voor checkbox het is
-
-    // span maken voor de tekst van de taak (zorgt ervoor dat we de tekst apart kunnen stylen of wijzingen voor css)
-    const tasktext = document.createElement("span");
-    tasktext.className = "tasktekst" // hier geven we een class aan
-    tasktext.textContent = task; // hier komt de value van const task
-
-    // event listener maken toevoegen aan checkbox om de taak te doorstrepen
-    checkbox.addEventListener("change" , () =>{
-    if (checkbox.checked) {
-        tasktext.style.textDecoration = "line-through" // doorstrepen
-    }
-    else{
-        tasktext.style.textDecoration = "none"  // geen streep als dat niet gecheckt is
-
-    }
 
 
 
 
-    });
-    // button (delete knop) maken
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "\u00d7";  // tekst button
-    deleteBtn.className = "delete-btn"; // class name van de button
+        // Checkbox maken
+        const checkbox = document.createElement("input");
+        checkbox.className = "checkbox"
+        checkbox.type = "checkbox"; // hier zeggen we wat voor checkbox het is
 
-    // Voeg een event listener toe aan de delete-knop
-    deleteBtn.addEventListener("click", () => {
-        li.remove(); // Verwijder het specifieke item
-    });
+        // span maken voor de tekst van de taak (zorgt ervoor dat we de tekst apart kunnen stylen of wijzingen voor css)
+        const tasktext = document.createElement("span");
+        tasktext.className = "tasktekst" // hier geven we een class aan
+        tasktext.textContent = task; // hier komt de value van const task
 
-    // checkbox toevoegen aan de li 
-    li.appendChild(checkbox);
-    li.appendChild(tasktext);
+        // event listener maken toevoegen aan checkbox om de taak te doorstrepen
+        checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+                tasktext.style.textDecoration = "line-through" // doorstrepen
+            }
+            else {
+                tasktext.style.textDecoration = "none"  // geen streep als dat niet gecheckt is
 
-    // delete knop toevoegen in de  li
-    li.appendChild(deleteBtn);
+            }
 
-     // voeg li aan lu
-     ul.appendChild(li);
+
+
+
+        });
+        // button (delete knop) maken
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "\u00d7";  // tekst button
+        deleteBtn.className = "delete-btn"; // class name van de button
+
+        // Voeg een event listener toe aan de delete-knop
+        deleteBtn.addEventListener("click", () => {
+            li.remove(); // Verwijder het specifieke item
+        });
+
+        // checkbox toevoegen aan de li 
+        li.appendChild(checkbox);
+        li.appendChild(tasktext);
+
+        // delete knop toevoegen in de  li
+        li.appendChild(deleteBtn);
+
+        // voeg li aan lu
+        ul.appendChild(li);
     }
 
 
@@ -74,3 +74,12 @@ clearnbtn.addEventListener("click", () => {
     // Verwijder alle items in de lijst
     ul.innerHTML = "";
 });
+
+
+
+
+// datum bovenaan dat aangeeft hoeveelste het vandaag is
+const d = new Date();
+const dd = String(d.getDate()).padStart(2, '0');
+const mm = String(d.getMonth() + 1).padStart(2, '0');
+document.getElementById("today-date").textContent = `${dd}/${mm}`;
