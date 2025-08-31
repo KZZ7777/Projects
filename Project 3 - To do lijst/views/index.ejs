@@ -1,24 +1,69 @@
 <%- include("partials/header") %>
-    <div class="starting-container">
+    <section class="starting-container">
         <h1>To do list </h1>
         <div class="date-container">
             <p>Today</p>
             <p id="today-date"></p>
         </div>
+    </section>
+
+    <div class="content-wrapper">
+        <main>
+            <section class="todo-container">
+                <div class="todo-box">
+
+                    <!-- Add formulier -->
+                    <form class="add" action="/add" method="post">
+                        <input type="text" name="text" id="task" required placeholder="Add your tasks" />
+                        <button id="btn" type="submit">Add</button>
+                    </form>
+
+                    <!-- Lijst + Clear knop -->
+                    <section class="list-container">
+                        <ul id="list">
+                            <li class="empty">Er zijn nog geen taken</li>
+                        </ul>
+                        <button id="clear-btn" type="submit" formaction="/clear" formmethod="post">
+                            Clear all
+                        </button>
+                    </section>
+
+                </div>
+            </section>
+        </main>
+
+        <!-- calendar-and-important.html -->
+        <aside class="dashboard">
+            <!-- Calendar Card -->
+            <div class="card calendar-card">
+                <div class="calendar">
+                    <header class="cal-header">
+                        <button class="nav prev" aria-label="Previous month">◄</button>
+                        <div class="cal-title">
+                            <span class="year"></span>
+                            <span class="month"></span>
+                        </div>
+                        <button class="nav next" aria-label="Next month">►</button>
+                    </header>
+
+                    <div class="cal-inner">
+                        <div class="cal-weekdays">
+                            <span>Z</span><span>M</span><span>D</span><span>W</span><span>D</span><span>V</span><span>Z</span>
+                        </div>
+                        <div class="cal-grid" aria-label="Calendar days"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Important Card -->
+            <div class="card important-card">
+                <h3>IMPORTANT</h3>
+                <div class="important-inner">
+                    <textarea id="important-notes" placeholder="Write your notes"></textarea>
+                </div>
+            </div>
+        </aside>
     </div>
 
-    <main>
-        <div class="todo-container">
-            <div class="todo-box">
-                <form class="add" action="/add" method="post">
-                    <input type="text" name="text" id="task" required placeholder="Add your tasks" />
-                    <button id="btn" type="submit">Add</button>
-                    <button id="clear-btn" type="submit" formaction="/clear" formmethod="post">Clear all</button>
-                    <ul id="list">
-                        <p>Er zijn geen taken</p>
-                    </ul>
-            </div>
-        </div>
-    </main>
 
     <%- include("partials/footer") %>

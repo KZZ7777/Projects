@@ -1,20 +1,13 @@
 to do lijst aanpassing: 
 
-- als je pagina refresht dat de taken niet weg ga.
-- als je taak toevoegt ga de tekst "Er zijn geen taken" weg .
-- footer fixen.
 - mediaquerries fixen (tailwind gebruiken).
-- layout fixen (is te boring).
-- dark mode 
 - ipv alleen op add te drukken kan je ook gwn op enter drukken en dan wordt de task toegevoegd
 
 
 
 designs
 - randen hebben een gloed die bewegen bij de todo lijst 
-- agenda toevoegen 
-- datum links boven toevoegen 
-
+- mss process toevoegen 
 
 
 titel fonts:
@@ -24,27 +17,7 @@ titel fonts:
 
 
 
-extra tips voor later
-
-1. Accent-elementen
-
-Icons: gebruik simpele witte of lichtpaarse icons (bijv. een prullenbak bij “CLEAR ALL”, een plus bij “Add”).
-
-Checkmark animatie: als je een taak aanvinkt, kan een paars check-icoon verschijnen.
-
-2. Achtergrond details
-
-Subtiele gradients achter je hoofdcontainers. Bijvoorbeeld van #100518 naar #2A0C38.
-
-Glow effecten: zet een zachte paarse “outer glow” achter belangrijke onderdelen zoals de kalender of de “IMPORTANT” box.
-
-3. Typografie en hiërarchie
-
-Maak titels (zoals “TO DO LIST” en “IMPORTANT”) groter en gebruik een lichtere paars (#CBA3FF) zodat ze meer opvallen.
-
-Gebruik een consistent lettertype, liefst strak en modern (bijv. Inter, Poppins of Roboto).
-
-4. Extra UI-secties
+extra tips voor later:
 
 Progress bar: toon hoeveel taken afgerond zijn. Maak hem in een gradient van #7B1FA2 naar #A020F0.
 
@@ -52,10 +25,3 @@ Mini icons in de kalenderdagen (bijv. een stipje onder een datum met taken).
 
 Notities-sectie onder “IMPORTANT” waar je korte reminders kwijt kan.
 
-5. Kleine decoratieve accenten
-
-Voeg paarse scheidingslijnen of subtiele borders toe tussen blokken.
-
-Gebruik lichte hover-states: bijvoorbeeld, wanneer je over de “Add” knop gaat, laat de gradient feller worden.
-
-Plaats een lichte glow of shadow achter het hele centrale blok, zodat het loskomt van de achtergrond.

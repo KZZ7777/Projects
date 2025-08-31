@@ -1,85 +1,115 @@
-const ul = document.querySelector("#list") // komt van lu element (html)
-const btn = document.querySelector("#btn") // komt van button element (html)
-const clearnbtn = document.querySelector("#clear-btn"); // komt van button element clear (html)
+const ul = document.querySelector("#list")
+const btn = document.querySelector("#btn")
+const clearBtn = document.querySelector("#clear-btn")
+const input = document.querySelector("#task")
 
-btn.addEventListener("click", () => {
-    const input = document.querySelector("#task"); // komt van input element (html)
+function taskItems() {
+    return ul.querySelectorAll("li:not(.empty)")
+}
 
-    const task = input.value.trim(); // trim zorgt ervoor dat spaties bij het begin en eide van van de invoer wordt verwijderd
-
-    if (task === '') {
-        alert("You must write something!");
+function showEmpty() {
+    if (taskItems().length === 0 && !ul.querySelector(".empty")) {
+        const li = document.createElement("li")
+        li.className = "empty"
+        li.textContent = "Er zijn nog geen taken"
+        ul.appendChild(li)
     }
-    else {
-        // we gaan een list maken
-        const li = document.createElement("li");
+}
 
+function hideEmpty() {
+    const e = ul.querySelector(".empty")
+    if (e) e.remove()
+}
 
+function saveTasks() {
+    const data = []
+    taskItems().forEach(li => {
+        data.push({
+            text: li.querySelector(".tasktekst").textContent,
+            checked: li.querySelector(".checkbox").checked
+        })
+    })
+    localStorage.setItem("tasks", JSON.stringify(data))
+}
 
-
-        // Checkbox maken
-        const checkbox = document.createElement("input");
-        checkbox.className = "checkbox"
-        checkbox.type = "checkbox"; // hier zeggen we wat voor checkbox het is
-
-        // span maken voor de tekst van de taak (zorgt ervoor dat we de tekst apart kunnen stylen of wijzingen voor css)
-        const tasktext = document.createElement("span");
-        tasktext.className = "tasktekst" // hier geven we een class aan
-        tasktext.textContent = task; // hier komt de value van const task
-
-        // event listener maken toevoegen aan checkbox om de taak te doorstrepen
-        checkbox.addEventListener("change", () => {
-            if (checkbox.checked) {
-                tasktext.style.textDecoration = "line-through" // doorstrepen
-            }
-            else {
-                tasktext.style.textDecoration = "none"  // geen streep als dat niet gecheckt is
-
-            }
-
-
-
-
-        });
-        // button (delete knop) maken
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "\u00d7";  // tekst button
-        deleteBtn.className = "delete-btn"; // class name van de button
-
-        // Voeg een event listener toe aan de delete-knop
-        deleteBtn.addEventListener("click", () => {
-            li.remove(); // Verwijder het specifieke item
-        });
-
-        // checkbox toevoegen aan de li 
-        li.appendChild(checkbox);
-        li.appendChild(tasktext);
-
-        // delete knop toevoegen in de  li
-        li.appendChild(deleteBtn);
-
-        // voeg li aan lu
-        ul.appendChild(li);
+function loadTasks() {
+    const raw = localStorage.getItem("tasks")
+    if (!raw) {
+        showEmpty()
+        return
     }
+    const items = JSON.parse(raw)
+    if (items.length === 0) {
+        showEmpty()
+        return
+    }
+    items.forEach(t => addTask(t.text, t.checked, false))
+}
 
+function addTask(text, checked = false, save = true) {
+    hideEmpty()
 
-    input.value = "" // deze zorgt ervoor dat ons balkje steeds leeg is als we iets invullen
+    const li = document.createElement("li")
 
+    const checkbox = document.createElement("input")
+    checkbox.type = "checkbox"
+    checkbox.className = "checkbox"
+    checkbox.checked = checked
 
-});
+    const span = document.createElement("span")
+    span.className = "tasktekst"
+    span.textContent = text
 
+    const del = document.createElement("button")
+    del.className = "delete-btn"
+    del.textContent = "X"
 
-// als je alles van de list wilt verwijderen
-clearnbtn.addEventListener("click", () => {
-    // Verwijder alle items in de lijst
-    ul.innerHTML = "";
-});
+    // doorstrepen bij check
+    if (checkbox.checked) li.classList.add("is-done")
+    checkbox.addEventListener("change", () => {
+        li.classList.toggle("is-done", checkbox.checked)
+        saveTasks()
+    })
 
+    del.addEventListener("click", () => {
+        li.remove()
+        saveTasks()
+        if (taskItems().length === 0) showEmpty()
+    })
 
+    li.appendChild(checkbox)
+    li.appendChild(span)
+    li.appendChild(del)
 
+    ul.appendChild(li)
+    if (save) saveTasks()
+}
 
-// datum bovenaan dat aangeeft hoeveelste het vandaag is
-const d = new Date();
-const dd = String(d.getDate()).padStart(2, '0');
-const mm = String(d.getMonth() + 1).padStart(2, '0');
-document.getElementById("today-date").textContent = `${dd}/${mm}`;
+btn.addEventListener("click", e => {
+    e.preventDefault()
+    const text = input.value.trim()
+    if (!text) {
+        alert("You must write something!")
+        return
+    }
+    addTask(text, false, true)
+    input.value = ""
+    input.focus()
+})
+
+clearBtn.addEventListener("click", e => {
+    e.preventDefault()
+    ul.innerHTML = ""
+    saveTasks()
+    showEmpty()
+})
+
+// datum
+const d = new Date()
+const dd = String(d.getDate()).padStart(2, "0")
+const mm = String(d.getMonth() + 1).padStart(2, "0")
+const el = document.getElementById("today-date")
+if (el) el.textContent = `${dd}/${mm}`
+
+// start
+loadTasks()
